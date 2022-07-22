@@ -1,0 +1,23 @@
+.main{
+    position: relative;
+    bottom: 170px;
+}
+.UserSection{
+}
+.LabourSection{
+    border-radius: 20px;
+    box-shadow: 5px 10px #f3eeee;
+    background-color: rgb(235, 179, 106);
+}
+.CustomerSection{
+    border-radius: 20px;
+    box-shadow: 5px 10px #f3eeee;
+    background-color: rgb(235, 179, 106);
+
+}
+.avatar {
+    vertical-align: middle;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+  }

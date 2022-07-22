@@ -1,6 +1,11 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
+        acts_as_token_authenticatable
+        # Include default devise modules. Others available are:
+        # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+        devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+        def invalidate_all_sessions!
+                update_attribute(:authentication_token, SecureRandom.hex)
+        end
 end
