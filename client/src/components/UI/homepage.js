@@ -1,9 +1,26 @@
 import Images from "./Images";
 import Navbar from "./Navbar";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import LabourProfileImage from "../../assets/labourer1.jpg";
 import CustomerImage from "../../assets/customer1.png";
 import classes from "./HomePage.module.css";
+import SignUp from "../Users/SignUp";
 const HomePage = (props) => {
+  const navigate = useNavigate();
+  const CustomerLoginHandler = (props) => {
+    navigate("/signup", {
+      state: {
+        userType: 0
+      },
+    });
+  };
+  const LabourLoginHandler = (props) => {
+    navigate("/signup", {
+      state: {
+        userType: 1
+      },
+    });
+  };
   return (
     <>
       <Navbar></Navbar>
@@ -26,11 +43,15 @@ const HomePage = (props) => {
               <div className="card-body">
                 <h5 className="card-title">Customer</h5>
                 <p className="card-text">
-                  Looking for Labourer or Engineer fast and no third party, Welcome here
+                  Looking for Labourer or Engineer fast and no third party,
+                  Welcome here
                 </p>
-                <a href="#" className="btn btn-primary">
+                <button
+                  onClick={CustomerLoginHandler}
+                  className="btn btn-primary"
+                >
                   Login as a Customer
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -48,11 +69,12 @@ const HomePage = (props) => {
             <div className="card-body">
               <h5 className="card-title">Labourer</h5>
               <p className="card-text">
-                Looking for job and want to show to talent without third party, Welcome here!!
+                Looking for job and want to show to talent without third party,
+                Welcome here!!
               </p>
-              <a href="#" className="btn btn-primary">
+              <button onClick={LabourLoginHandler} className="btn btn-primary">
                 Login as a Labourer
-              </a>
+              </button>
             </div>
           </div>
         </div>

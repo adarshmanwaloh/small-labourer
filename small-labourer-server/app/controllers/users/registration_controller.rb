@@ -19,6 +19,7 @@ class Users::RegistrationController < Devise::RegistrationsController
         if user.save 
             render json: {status: "SUCCESS", message: "Created new user account", data: user }, status: :ok
         else 
+            puts user.errors.full_messages
             render json: {status: "ERROR", 
                         message: "Could not create new user account", 
                         data: user.errors}, 
