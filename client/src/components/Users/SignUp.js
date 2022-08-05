@@ -21,7 +21,7 @@ const SignUp = (props) => {
       .post(`http://localhost:3000/users`, {
         email: email,
         password: password,
-        user_type: "1"
+        user_type: "1",
       })
       .then((res) => {
         // console.log(res)
@@ -85,10 +85,9 @@ const SignUp = (props) => {
             </label>
             <input
               type="tel"
-              value={state.userType}
+              defaultValue={state.userType}
               className="form-control"
               id="exampleInputUsertype1"
-              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
