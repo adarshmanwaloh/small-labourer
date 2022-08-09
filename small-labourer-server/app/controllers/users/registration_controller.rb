@@ -7,10 +7,11 @@ class Users::RegistrationController < Devise::RegistrationsController
     end
     
     def create
-        user = User.create(first_name: params[:first_name], 
-                    last_name: params[:last_name],
+        puts("==================")
+        puts(params[:user_type])
+        puts("==================")
+        user = User.create( 
                     email: params[:email], 
-                    addresh: params[:addresh],
                     mobile_number: params[:mobile_number],
                     user_type: params[:user_type],
                     password: params[:password],
@@ -22,7 +23,7 @@ class Users::RegistrationController < Devise::RegistrationsController
             puts user.errors.full_messages
             render json: {status: "ERROR", 
                         message: "Could not create new user account", 
-                        data: user.errors}, 
+                        data: user.errors.full_messages}, 
                         status: :unprocessable_entity
         end
     end

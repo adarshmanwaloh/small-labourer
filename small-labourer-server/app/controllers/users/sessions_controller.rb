@@ -6,13 +6,13 @@ class Users::SessionsController < ApplicationController
         render json: { error: true, message: 'User not found !'}, 
         status: 401 and return
       end
-  
     #   if user.confirmed?
         if user &.valid_password?(params[:password])
-            render json: user.as_json(only: [:id ,:first_name,:last_name,:username,:age,:gender, :email,:authentication_token]),status: :created
+          puts("user login sucessfully", user)
+          render json: user.as_json(only: [:id,:user_type, :email,:authentication_token]),status: :created
         else 
-            render json: { error: true, message: 'Unauthorized'}
-            head(:unauthorized)
+          render json: { error: true, message: 'Unauthorized'}
+          head(:unauthorized)
         end
     #   else
     #     render json: { error: true, message: 'Please confirm your registered email to access your account.'}, 
