@@ -2,16 +2,43 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Cookies from "js-cookie";
 const SignUp = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [userType, setUserType] = useState();
+  const [mobileNumber, setMobileNumber] = useState("");
+  // const [userType, setUserType] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   let navigate = useNavigate();
   const { state } = useLocation();
+  const LoginHandler = (email, password) => {
+    console.log(" loging in ==========")
+    axios
+      .post(`http://localhost:3000/users/sign_in`, { email, password })
+      .then((res) => {
+        Cookies.set("userEmail", res.data.email);
+        Cookies.set("authToken", res.data.authentication_token);
+        localStorage.setItem("userData", JSON.stringify(res.data));
+        navigate("/", {
+          state: {
+            messageStatus: "success",
+            message: "User was successfully signed in",
+          },
+        });
+      })
+      .catch((err) => {
+        navigate("/signin", {
+          state: {
+            messageStatus: "error",
+            message: "User Not found please try again ",
+          },
+        });
+      });
+  };
   const formhandler = (e) => {
     e.preventDefault();
     const userType = document.getElementById("exampleInputUsertype1").value;
+    // setUserType(document.getElementById("exampleInputUsertype1").value)
     console.log(" in the form handler", userType);
     if (password !== passwordConfirmation) {
       console.log("password did not match to each other");
@@ -21,21 +48,20 @@ const SignUp = (props) => {
       .post(`http://localhost:3000/users`, {
         email: email,
         password: password,
-        user_type: "1",
+        user_type: userType,
+        mobile_number: mobileNumber,
       })
       .then((res) => {
-        // console.log(res)
         alert("User was successfully created.");
-        navigate("/signin", {
-          state: {
-            messageStatus: "success",
-            message:
-              "User Successfully created, a confirmation mail is send to you email please click confirm email ",
-          },
-        });
+        console.log("UserType is", userType);
+        LoginHandler(email,password)
       })
-      .catch((err) => {
-        alert("User can't be created due to an error: " + err.data);
+      .catch((error) => {
+        console.log(error.response.data.data[0]);
+        alert(
+          "User can't be created due to an error: " +
+            error.response.data.data[0]
+        );
       });
   };
   return (
@@ -74,6 +100,7 @@ const SignUp = (props) => {
               required
               className="form-control"
               id="exampleInputMobile1"
+              onChange={(e) => setMobileNumber(e.target.value)}
             />
           </div>
           <div className="mb-3 m-2">

@@ -50,7 +50,7 @@ const HomePage = (props) => {
                   onClick={CustomerLoginHandler}
                   className="btn btn-primary"
                 >
-                  Login as a Customer
+                  SignUp as a Customer
                 </button>
               </div>
             </div>
@@ -73,7 +73,7 @@ const HomePage = (props) => {
                 Welcome here!!
               </p>
               <button onClick={LabourLoginHandler} className="btn btn-primary">
-                Login as a Labourer
+              SignUp as a Labourer
               </button>
             </div>
           </div>
